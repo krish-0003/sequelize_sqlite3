@@ -3,6 +3,7 @@ const router = express.Router();
 const Employee = require("../Models/employee");
 const Department = require("../Models/department");
 
+//create a new department
 router.post("/create_department", function (req, res) {
   Department.create({
     name: req.body.name,
@@ -27,6 +28,7 @@ router.post("/create_department", function (req, res) {
   );
 });
 
+//get all departments
 router.get("/departments", async function (req, res) {
   await Department.findAll()
     .then((d_emp) => {
@@ -37,6 +39,7 @@ router.get("/departments", async function (req, res) {
     });
 });
 
+//get all department by id
 router.get("/department/:id", async function (req, res) {
   let { id } = req.params;
   await Department.findByPk(id, {
@@ -54,6 +57,7 @@ router.get("/department/:id", async function (req, res) {
     });
 });
 
+//delete department by id ,and the employee also gets deleted who is associated with that department
 router.delete("/delete_department/:id", async function (req, res) {
   let { id } = req.params;
   await Department.destroy({

@@ -3,6 +3,7 @@ const router = express.Router();
 const Employee = require("../Models/employee");
 const Department = require("../Models/department");
 
+//delete employee by id
 router.delete("/delete_employee/:id", async function (req, res) {
   let { id } = req.params;
   await Employee.destroy({
@@ -13,7 +14,7 @@ router.delete("/delete_employee/:id", async function (req, res) {
     res.json(resp);
   });
 });
-
+//create employee
 router.post("/create_employee", function (req, res) {
   Employee.create({
     name: req.body.name,
@@ -44,6 +45,7 @@ router.post("/create_employee", function (req, res) {
   );
 });
 
+//get all employees
 router.get("/employees", async function (req, res) {
   await Employee.findAll()
     .then((emp) => {
@@ -53,7 +55,7 @@ router.get("/employees", async function (req, res) {
       res.json(err);
     });
 });
-
+// get all employees by id
 router.get("/employee/:id", async function (req, res) {
   let { id } = req.params;
   await Employee.findByPk(id, {
@@ -70,7 +72,7 @@ router.get("/employee/:id", async function (req, res) {
       res.json(err);
     });
 });
-
+//update employee name by id
 router.put("/employee/:id", async function (req, res) {
   let { id } = req.params;
   await Employee.update({ name: req.body.name }, { where: { id: id } })
@@ -82,6 +84,7 @@ router.put("/employee/:id", async function (req, res) {
     });
 });
 
+//get employee data by query filter
 router.get("/employees", async function (req, res) {
   let filter = {};
   let { q } = req.query;
